@@ -27,6 +27,14 @@ class Item:
     def __str__(self):
         return f'{self.__name}'
 
+    def __add__(self, other):
+        """
+        Позволяет складывать  свои экземпляры и дочерних классов
+        """
+        if isinstance(other, self.__class__):
+            return self.quantity + other.quantity
+        return None
+
     def calculate_total_price(self) -> float:
         """
         Рассчитывает общую стоимость конкретного товара в магазине.
@@ -78,7 +86,7 @@ class Item:
     @staticmethod
     def string_to_number(meaning):
         """
-        статический метод, возвращающий число из числа-строки
+        Cтатический метод, возвращающий число из числа-строки
         """
         return int(floor((float(meaning))))
 

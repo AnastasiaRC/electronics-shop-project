@@ -1,26 +1,25 @@
-"""Здесь надо написать тесты с использованием pytest для модуля item."""
 from src.item import Item
 
 
-def test_calculate_total_price(test_data):
-    assert test_data[1].calculate_total_price() == 200000
-    assert test_data[2].calculate_total_price() == 100000
+def test_calculate_total_price(test_data_item):
+    assert test_data_item[1].calculate_total_price() == 200000
+    assert test_data_item[2].calculate_total_price() == 100000
 
 
-def test_apply_discount(test_data):
+def test_apply_discount(test_data_item):
     Item.pay_rate = 0.8
-    test_data[1].apply_discount()
-    assert test_data[1].price == 8000.0
-    assert test_data[2].price == 20000
+    test_data_item[1].apply_discount()
+    assert test_data_item[1].price == 8000.0
+    assert test_data_item[2].price == 20000
 
 
-def test_getter_fullname(test_data):
-    assert test_data[0].fullname == 'Смартфон'
+def test_getter_fullname(test_data_item):
+    assert test_data_item[0].fullname == 'Смартфон'
 
 
-def test_setter_fullname(test_data):
-    assert test_data[0]._Item__name == 'Смартфон'
-    assert test_data[3].fullname == 'СуперСмартфон'
+def test_setter_fullname(test_data_item):
+    assert test_data_item[0]._Item__name == 'Смартфон'
+    assert test_data_item[3].fullname == 'СуперСмартфон'
 
 
 def test_instantiate_from_csv(test_data_reader):
@@ -40,10 +39,16 @@ def test_string_to_number():
     assert Item.string_to_number('5.5') == 5
 
 
-def test_repr(test_data):
-    assert repr(test_data[1]) == "Item('Смартфон', 10000, 20)"
+def test_repr(test_data_item):
+    assert repr(test_data_item[1]) == "Item('Смартфон', 10000, 20)"
 
 
-def test_str(test_data):
-    assert str(test_data[1]) == 'Смартфон'
+def test_str_item(test_data_item):
+    assert str(test_data_item[1]) == 'Смартфон'
+
+
+def test_add(test_data_item, test_data_phone):
+    assert test_data_item[1] + test_data_phone[1] == 25
+    assert test_data_phone[1] + test_data_phone[1] == 10
+
 
