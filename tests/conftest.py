@@ -1,5 +1,6 @@
 import pytest
 from src.item import Item
+from src.keyboard import KeyBoard
 from src.phone import Phone
 
 
@@ -24,3 +25,10 @@ def test_data_phone():
     phone = Phone("iPhone 14", 120_000, 5, -1.1)
     phone1 = Phone("iPhone 14", 120_000, 5, 2)
     return [phone, phone1]
+
+
+@pytest.fixture
+def test_data_keyboard():
+    keyboard = KeyBoard('Dark Project KD87A', 9600, 2)
+    keyboard1 = KeyBoard('Dark Project KD87A', 9600, 5)
+    return [keyboard, keyboard1]
