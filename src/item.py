@@ -3,6 +3,14 @@ import os
 from math import floor
 
 
+class InstantiateCSVError(Exception):
+    def __init__(self):
+        self.message = "Файл item.csv поврежден"
+
+    def __str__(self):
+        return self.message
+
+
 class Item:
     """
     Класс для представления товара в магазине.
@@ -74,15 +82,21 @@ class Item:
         Cоздает объекты из данных файла src/items.csv, добавляет адрес ячейки памяти со значением экземпляра класса,
         возвращает заново инициализирование значения класса
         """
-        with open(f'{os.path.dirname(os.path.realpath(__file__))}/items.csv', newline='') as csvfile:
-            reader = csv.DictReader(csvfile)
-            for row in reader:
-                name = row['name']
-                price = float(row['price'])
-                quantity = int(row['quantity'])
-                new = Item(name, price, quantity)
-                cls.all.append(new)
-            return cls(name, price, quantity)
+        try:
+            with open(f'{os.path.dirname(os.path.realpath(__file__))}/items.csv', newline='') as csvfile:
+                reader = csv.DictReader(csvfile)
+                for row in reader:
+                    if row['name'] and row['price'] and row['quantity']:
+                        name = row['name']
+                        price = float(row['price'])
+                        quantity = int(row['quantity'])
+                        new = Item(name, price, quantity)
+                        cls.all.append(new)
+                        return cls(name, price, quantity)
+                    else:
+                        raise InstantiateCSVError
+        except FileNotFoundError:
+            raise FileNotFoundError("Отсутствует файл item.csv")
 
     @staticmethod
     def string_to_number(meaning):

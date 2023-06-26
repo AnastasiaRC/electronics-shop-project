@@ -1,4 +1,6 @@
-from src.item import Item
+import pytest
+
+from src.item import Item, InstantiateCSVError
 
 
 def test_calculate_total_price(test_data_item):
@@ -51,4 +53,15 @@ def test_add(test_data_item, test_data_phone):
     assert test_data_item[1] + test_data_phone[1] == 25
     assert test_data_phone[1] + test_data_phone[1] == 10
 
+
+def test_filenotfounderror(test_cls_data):
+    with pytest.raises(FileNotFoundError):
+        for row in test_cls_data:
+            row.instantiate_from_csv()
+
+
+def test_instantiatecsverror(test_cls_data):
+    with pytest.raises(InstantiateCSVError):
+        for row in test_cls_data:
+            row.instantiate_from_csv()
 
