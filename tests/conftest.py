@@ -1,3 +1,6 @@
+import csv
+import os
+
 import pytest
 from src.item import Item
 from src.keyboard import KeyBoard
@@ -32,3 +35,10 @@ def test_data_keyboard():
     keyboard = KeyBoard('Dark Project KD87A', 9600, 2)
     keyboard1 = KeyBoard('Dark Project KD87A', 9600, 5)
     return [keyboard, keyboard1]
+
+
+@pytest.fixture
+def test_cls_data():
+    cls_data = [Item('Смартфон', 100.0, 1), Item('Сигнализация', 1000.0, 3),
+                 Item('Чип', 10.0, 5), Item('Наушники', 50.0, 0)]
+    return cls_data
