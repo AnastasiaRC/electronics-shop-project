@@ -92,6 +92,7 @@ class Item:
                         quantity = int(row['quantity'])
                         new = Item(name, price, quantity)
                         cls.all.append(new)
+                        return cls(name, price, quantity)
                     else:
                         raise InstantiateCSVError
         except FileNotFoundError:
